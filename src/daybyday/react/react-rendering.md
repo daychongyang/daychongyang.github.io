@@ -74,7 +74,7 @@ const UI = commit(state)
   fiberRoot.containerInfo = container
   ```
 
-  ![react-render](/react/createRootFiber.png)
+  ![react-render](/image/share/react-render/createRootFiber.png)
 
   2.  [创建 update](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberReconciler.old.js#L301) `{ payload : { element } }`
 
@@ -100,7 +100,7 @@ const UI = commit(state)
               }
               ```
 
-              ![workInProgress](/react/workInProgress.png)
+              ![workInProgress](/image/share/react-render/workInProgress.png)
 
           - [workLoopSync](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L1575)
 
@@ -113,7 +113,7 @@ const UI = commit(state)
             }
             ```
 
-            - [performUnitOfWork](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L1701) ` workInProgress = workInProgress.child`
+            - [performUnitOfWork](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L1701) `workInProgress = workInProgress.child`
 
               - `递` 自 `rootFiber` 向下深度优先遍历. 为每一个 fiber 节点调用 `beginWork` 方法. 当遍历到叶子节点时, 变会进入当前节点的 "归" 阶段.
               - `归` 为当前 fiber 节点调用 `completeWork` 方法, 且若其存在兄弟节点 `sibling`, 变会进入 `sibling` 节点的 "递" 阶段. 反之, 进入父节点的 "归" 阶段.
@@ -130,9 +130,9 @@ const UI = commit(state)
                   - 挂载
 
                     - [读取 context](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberClassComponent.old.js#L824)
-                    - [构造函数初始化](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberBeginWork.old.js#L983)
+                    - [构造函数初始化 `constructor`](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberBeginWork.old.js#L983)
                     - [调用 生命周期函数`getDerivedStateFromProps`](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberClassComponent.old.js#L866)
-                    - [调用 生命周期函数`componentWillMount`](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberClassComponent.old.js#L885)
+                    - [调用 生命周期函数`componentWillMount | UNSAFE_componentWillMount`](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberClassComponent.old.js#L885)
                     - [调用 生命周期函数`render`](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberBeginWork.old.js#L1071)
                       - [reconcileChildren](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberBeginWork.old.js#L1103)
                         - [mountChildFibers](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberBeginWork.old.js#L263)
@@ -143,11 +143,13 @@ const UI = commit(state)
 
                   - 更新
 
-                    - [调用 生命周期函数`componentWillReceiveProps`](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberClassComponent.old.js#L866)
+                    - [调用 生命周期函数`componentWillReceiveProps | UNSAFE_componentWillReceiveProps`](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberClassComponent.old.js#L1080)
                     - [调用 生命周期函数`getDerivedStateFromProps`](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberClassComponent.old.js#L969)
-                    - [调用 生命周期函数`shouldComponentUpdate`](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberClassComponent.old.js#L866)
+                    - [调用 生命周期函数`shouldComponentUpdate`](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberClassComponent.old.js#L315)
+                    - [调用 生命周期函数`componentWillUpdate | UNSAFE_componentWillUpdate`](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberClassComponent.old.js#L1154)
 
                 - [updateHostComponent](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberBeginWork.old.js#L3522)
+                - [updateFunctionComponent](https://github.com/facebook/react/blob/6cbb9394d1/packages/react-reconciler/src/ReactFiberHooks.old.js#L392)
 
                 - **...**
 
@@ -163,7 +165,7 @@ const UI = commit(state)
                   - rootFiber.firstEffect (nextEffect)
                   - rootFiber.lastEffect
 
-              ![react-render](/react/react-fiber.png)
+              ![react-render](/image/share/react-render/react-fiber.png)
 
         - [commitRoot](https://github.com/facebook/react/blob/6cbb9394d1474e3a728b49dc7f3a11d61a421ce3/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L1097)
 

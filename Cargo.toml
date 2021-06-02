@@ -1,0 +1,15 @@
+[package]
+name = "daily"
+version = "0.0.1"
+license = "MIT"
+authors = ["Day <daychongyang@gmail.com>"]
+edition = "2018"
+description = "Rust powered static site generator.  "
+homepage = "https://daychongyang.github.io/"
+repository = "https://github.com/daychongyang/daychongyang.github.io"
+readme = "README.md"
+exclude = ["docs/*"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]

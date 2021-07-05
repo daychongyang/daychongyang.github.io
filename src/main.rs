@@ -1,12 +1,27 @@
-fn main() {
-  let v = vec![1, 2, 3];
+trait Summary {
+  fn summarize(&self) -> String;
+}
 
-  let third = &v[2];
+struct NewsArticle {
+  pub headline: String,
+  pub location: String,
+  pub author: String,
+  pub content: String,
+}
 
-  println!("The third element is {}", third);
-
-  match v.get(2) {
-    Some(third) => println!("The third element is {}", third),
-    None => println!("There is no third element."),
+impl Summary for NewsArticle {
+  fn summarize(&self) -> String {
+    format!("{}, by {}({})", self.headline, self.author, self.location)
   }
+}
+
+fn main() {
+  let article = NewsArticle {
+    headline: String::from("123"),
+    location: String::from("234"),
+    author: String::from("567"),
+    content: String::from("897"),
+  };
+
+  println!("1 new article: {}", article.summarize());
 }
